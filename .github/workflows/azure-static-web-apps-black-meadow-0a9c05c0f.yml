@@ -20,19 +20,20 @@ jobs:
           submodules: true
           lfs: false
       - name: Inject database connection string into DAB config
+        env:
+          DATABASE_CONNECTION_STRING: ${{ secrets.DATABASE_CONNECTION_STRING }}
         run: |
-          python3 -c "
-import json, re
-with open('swa-db-connections/staticwebapp.database.config.json', 'r') as f:
-    content = f.read()
-conn_str = '''${{ secrets.DATABASE_CONNECTION_STRING }}'''.strip()
-content = content.replace(\"@env('DATABASE_CONNECTION_STRING')\", conn_str)
-# Validate JSON
-json.loads(content)
-print('JSON valid after injection')
-with open('swa-db-connections/staticwebapp.database.config.json', 'w') as f:
-    f.write(content)
-"
+          python3 << 'PYEOF'
+          import os, json
+          conn_str = os.environ['DATABASE_CONNECTION_STRING']
+          with open('swa-db-connections/staticwebapp.database.config.json', 'r') as f:
+              content = f.read()
+          content = content.replace("@env('DATABASE_CONNECTION_STRING')", conn_str)
+          json.loads(content)
+          print('JSON valid after injection')
+          with open('swa-db-connections/staticwebapp.database.config.json', 'w') as f:
+              f.write(content)
+          PYEOF
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
