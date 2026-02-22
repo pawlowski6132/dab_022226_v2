@@ -28,5 +28,15 @@
       }
     }
   },
-  "entities": {}
+  "entities": {
+    "guitar_brands": {
+      "source": "dbo.guitar_brands",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        }
+      ]
+    }
+  }
 }
