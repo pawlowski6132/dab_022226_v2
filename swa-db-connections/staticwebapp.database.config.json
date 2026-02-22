@@ -7,9 +7,18 @@
     "rest": { "enabled": true },
     "graphql": { "enabled": false },
     "host": {
-      "mode": "production",
-      "authentication": { "provider": "StaticWebApps" }
+      "mode": "development"
     }
   },
-  "entities": {}
+  "entities": {
+    "guitar_brands": {
+      "source": "dbo.guitar_brands",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": ["read"]
+        }
+      ]
+    }
+  }
 }
