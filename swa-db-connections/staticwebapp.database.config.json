@@ -4,29 +4,12 @@
     "connection-string": "@env('DATABASE_CONNECTION_STRING')"
   },
   "runtime": {
-    "rest": {
-      "enabled": true,
-      "path": "/rest"
-    },
-    "graphql": {
-      "enabled": false
-    },
+    "rest": { "enabled": true },
+    "graphql": { "enabled": false },
     "host": {
       "mode": "production",
-      "authentication": {
-        "provider": "StaticWebApps"
-      }
+      "authentication": { "provider": "StaticWebApps" }
     }
   },
-  "entities": {
-    "guitar_brands": {
-      "source": "dbo.guitar_brands",
-      "permissions": [
-        {
-          "role": "anonymous",
-          "actions": ["read"]
-        }
-      ]
-    }
-  }
+  "entities": {}
 }
