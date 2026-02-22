@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dab_022226_v2</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    pre { background: #f4f4f4; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+    button { padding: 0.5rem 1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Data API Builder</h1>
+  <p>Connected to: <strong>pawlowski_sql_db</strong></p>
+
+  <h2>Query an entity</h2>
+  <label for="entity">Entity name:</label>
+  <input id="entity" type="text" placeholder="e.g. MyTable" style="margin: 0 0.5rem; padding: 0.4rem;" />
+  <button onclick="fetchEntity()">Fetch</button>
+
+  <pre id="output">Results will appear here...</pre>
+
+  <script>
+    async function fetchEntity() {
+      const entity = document.getElementById('entity').value.trim();
+      if (!entity) return;
+      document.getElementById('output').textContent = 'Loading...';
+      try {
+        const res = await fetch(`/data-api/rest/${entity}`);
+        const data = await res.json();
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById('output').textContent = 'Error: ' + err.message;
+      }
+    }
+  </script>
+</body>
+</html>

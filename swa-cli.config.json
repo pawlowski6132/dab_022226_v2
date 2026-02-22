@@ -1,0 +1,10 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "dab_022226_v2": {
+      "appLocation": ".",
+      "outputLocation": ".",
+      "dataApiLocation": "swa-db-connections"
+    }
+  }
+}
